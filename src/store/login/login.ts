@@ -32,6 +32,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+      // 注册动态路由
       const routes = mapMenusToRoutes(userMenus)
       routes.forEach((route) => {
         router.addRoute('main', route)
