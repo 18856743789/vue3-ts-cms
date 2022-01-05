@@ -10,11 +10,12 @@
       <template #headerHandler>
         <el-button
           v-if="isCreate"
-          @click="handleNewClick"
           type="primary"
           size="medium"
-          >新建用户</el-button
+          @click="handleNewClick"
         >
+          新建用户
+        </el-button>
       </template>
 
       <!-- 2.列中的插槽 -->
@@ -37,22 +38,24 @@
         <div class="handle-btns">
           <el-button
             v-if="isUpdate"
-            @click="handleEditClick(scope.row)"
             icon="el-icon-edit"
             size="mini"
             type="text"
-            >编辑</el-button
+            @click="handleEditClick(scope.row)"
           >
+            编辑
+          </el-button>
           <el-button
             v-if="isDelete"
-            @click="handleDeleteClick(scope.row)"
             icon="el-icon-delete"
             size="mini"
             type="text"
+            @click="handleDeleteClick(scope.row)"
             >删除</el-button
           >
         </div>
       </template>
+
       <!-- 在page-content中动态插入剩余的插槽 -->
       <template
         v-for="item in otherPropSlots"
@@ -91,6 +94,7 @@ export default defineComponent({
   emits: ['newBtnClick', 'editBtnClick'],
   setup(props, { emit }) {
     const store = useStore()
+
     // 0.获取操作的权限
     const isCreate = usePermission(props.pageName, 'create')
     const isUpdate = usePermission(props.pageName, 'update')
@@ -100,6 +104,7 @@ export default defineComponent({
     // 1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
+
     // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       if (!isQuery) return
@@ -115,7 +120,6 @@ export default defineComponent({
     getPageData()
 
     // 3.从vuex中获取数据
-
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
@@ -143,7 +147,6 @@ export default defineComponent({
       })
     }
     const handleNewClick = () => {
-      console.log(`新建`)
       emit('newBtnClick')
     }
     const handleEditClick = (item: any) => {
