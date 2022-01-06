@@ -4,4 +4,5 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
-declare let $store:any
+declare let $store: any
+declare module '*.json'

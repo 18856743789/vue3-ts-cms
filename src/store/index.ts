@@ -3,6 +3,7 @@ import login from './login/login'
 import system from './main/system/system'
 import { getPageListData } from '@/service/main/system/system'
 import { IRootState, IStoreType } from './types'
+import dashboard from './main/analysis/dashboard'
 
 const store = createStore<IRootState>({
   state() {
@@ -49,7 +50,8 @@ const store = createStore<IRootState>({
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 export function setupStore() {
