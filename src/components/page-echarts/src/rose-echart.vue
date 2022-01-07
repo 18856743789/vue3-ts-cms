@@ -16,9 +16,6 @@ const props = defineProps<{
 
 const options = computed(() => {
   return {
-    // legend: {
-    //   top: 'bottom'
-    // },
     toolbox: {
       show: true,
       feature: {
@@ -28,17 +25,23 @@ const options = computed(() => {
         saveAsImage: { show: true }
       }
     },
+    tooltip: {
+      trigger: 'item'
+    },
     series: [
       {
-        name: '类别数据',
+        name: '访问来源',
         type: 'pie',
-        radius: [10, 100],
+        radius: [10, 150],
         center: ['50%', '50%'],
         roseType: 'area',
         itemStyle: {
           borderRadius: 8
         },
-        data: props.roseData
+        data: props.roseData,
+        label: {
+          show: false
+        }
       }
     ]
   }

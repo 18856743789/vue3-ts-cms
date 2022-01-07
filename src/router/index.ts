@@ -11,6 +11,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
+    meta: {
+      title: '登录'
+    },
     component: () => import('@/views/login/login.vue')
   },
   {
@@ -39,6 +42,11 @@ router.beforeEach((to) => {
   }
   if (to.path === '/main') {
     return firstMenu.url
+  }
+  if (to.meta.title) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.document.title = to.meta.title
   }
 })
 

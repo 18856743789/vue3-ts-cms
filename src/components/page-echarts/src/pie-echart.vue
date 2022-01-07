@@ -24,9 +24,10 @@ const options = computed(() => {
     },
     series: [
       {
-        name: '分类数据',
+        name: '访问来源',
         type: 'pie',
         radius: '50%',
+        bottom: '-10%',
         data: props.pieData,
         emphasis: {
           itemStyle: {

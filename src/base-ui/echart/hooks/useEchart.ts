@@ -1,27 +1,23 @@
 import * as echarts from 'echarts'
+import type { EChartsOption } from 'echarts'
 
-import chinaMapData from '../data/china.json'
+// 注册中国地图
+import chinaJson from '../data/china.json'
+echarts.registerMap('china', chinaJson)
 
-echarts.registerMap('china', chinaMapData)
+export function useEcharts(domEl: HTMLElement, theme = 'light') {
+  // 初始化echarts
+  const echartsInstance = echarts.init(domEl, theme, { renderer: 'svg' })
 
-export default function (el: HTMLElement) {
-  const echartInstance = echarts.init(el)
-
-  const setOptions = (options: echarts.EChartsOption) => {
-    echartInstance.setOption(options)
+  // 设置options
+  const setOptions = (options: EChartsOption) => {
+    echartsInstance.setOption(options)
   }
 
-  const updateSize = () => {
-    echartInstance.resize()
-  }
-
+  // 监听window尺寸的变化
   window.addEventListener('resize', () => {
-    echartInstance.resize()
+    echartsInstance.resize()
   })
 
-  return {
-    echartInstance,
-    setOptions,
-    updateSize
-  }
+  return [setOptions]
 }
