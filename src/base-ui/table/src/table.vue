@@ -43,7 +43,7 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
+          :current-page="page.currentPage"
           :page-sizes="[10, 20, 30]"
           :page-size="page.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
@@ -74,7 +74,7 @@ export default defineComponent({
     },
     propList: {
       type: Array,
-      required: true
+      default: () => []
     },
     showIndexColumn: {
       type: Boolean,

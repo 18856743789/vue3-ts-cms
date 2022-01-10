@@ -14,7 +14,7 @@
           size="medium"
           @click="handleNewClick"
         >
-          新建用户
+          新建数据
         </el-button>
       </template>
 
@@ -147,6 +147,7 @@ export default defineComponent({
       })
     }
     const handleNewClick = () => {
+      console.log(`新建数据`)
       emit('newBtnClick')
     }
     const handleEditClick = (item: any) => {

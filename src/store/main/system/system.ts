@@ -15,12 +15,16 @@ const systemModule: Module<ISystemState, IRootState> = {
     return {
       usersList: [],
       usersCount: 0,
+      departmentCount: 0,
+      departmentList: [],
       roleList: [],
       roleCount: 0,
       goodsList: [],
       goodsCount: 0,
       menuList: [],
-      menuCount: 0
+      menuCount: 0,
+      storyCount: 0,
+      storyList: []
     }
   },
   mutations: {
@@ -29,6 +33,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeUsersCount(state, userCount: number) {
       state.usersCount = userCount
+    },
+    changeDepartmentCount(state, departmentCount: number) {
+      state.departmentCount = departmentCount
+    },
+    changeDepartmentList(state, departmentList: any) {
+      state.departmentList = departmentList
     },
     changeRoleList(state, list: any[]) {
       state.roleList = list
@@ -66,17 +76,46 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 1.获取pageUrl
       const pageName = payload.pageName
       const pageUrl = `/${pageName}/list`
+      if (pageUrl.length === 0) return
 
       // 2.对页面发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
 
       // 3.将数据存储到state中
       const { list, totalCount } = pageResult.data
-
-      const changePageName =
-        pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
-      commit(`change${changePageName}List`, list)
-      commit(`change${changePageName}Count`, totalCount)
+      switch (payload.pageName) {
+        case 'users':
+          commit('changeUsersCount', totalCount)
+          commit('changeUsersList', list)
+          break
+        case 'department':
+          commit('changeDepartmentCount', totalCount)
+          commit('changeDepartmentList', list)
+          break
+        case 'role':
+          commit('changeRoleCount', totalCount)
+          commit('changeRoleList', list)
+          break
+        case 'menu':
+          commit('changeMenuList', list)
+          break
+        case 'category':
+          commit('changeCategoryCount', totalCount)
+          commit('changeCategoryList', list)
+          break
+        case 'goods':
+          commit('changeGoodsCount', totalCount)
+          commit('changeGoodsList', list)
+          break
+        case 'story':
+          commit('changeStoryCount', totalCount)
+          commit('changeStoryList', list)
+          break
+      }
+      // const changePageName =
+      //   pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
+      // commit(`change${changePageName}List`, list)
+      // commit(`change${changePageName}Count`, totalCount)
     },
 
     async deletePageDataAction({ dispatch }, payload: any) {
